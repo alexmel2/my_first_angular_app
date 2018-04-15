@@ -10,15 +10,15 @@ import { IProduct } from './product';
 @Injectable()
 export class ProductService {
     private _productUrl = './api/products/products.json';
-    getProducts():Observable<IProduct[]>{
+    getProducts(): Observable<IProduct[]> {
         return this._http.get<IProduct[]>(this._productUrl)
-        .do(data => console.log('All: ' + JSON.stringify(data)))
-        ;
+        .do(data => console.log('All: ' + JSON.stringify(data)));
           }
 
-          getProductsByID(id:number):void
+          getProductsByID(id: number): Observable<IProduct>
+          // tslint:disable-next-line:one-line
           {
-        
+          return this.getProducts().map((products: IProduct[]) => products.find(p => p.productId === id));
           }
-    constructor(private _http: HttpClient){    }
+    constructor(private _http: HttpClient) {}
 }
