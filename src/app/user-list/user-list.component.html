@@ -1,0 +1,54 @@
+<div class=" panel panel-primary">
+  <div class="panel panel-heading">
+      {{pageTitle}}
+  </div>
+  <div class="panel-body">
+      <div class="row">
+          <div class="col-md-2"> Filter by:</div>
+          <div class="col-md-4">
+              <input [(ngModel)]='listFilter'/>
+              {{listFilter}}
+          </div>
+      </div>
+     
+      <div class="table-responsive">
+          <table class="table">
+
+              <thead>
+                  <tr>
+                    
+                      <th>Name</th>
+                      <th>Address</th>
+                      <th>Delete</th>
+                      <th>Update</th>
+
+                  </tr>
+
+
+              </thead>
+              <tbody>
+                  <tr *ngFor='let user of filterProductList  | paginate: { itemsPerPage: 5, currentPage: p }'>
+                      <td><a [routerLink]="['/user',user.id]">{{user.name}}</a></td>
+                      
+                      <td>{{user.address.city}}</td>
+                      <td>
+                      <a>
+                        <span class="glyphicon glyphicon-remove" (click)="deteUser(user.id)"></span>
+                      </a >
+                    </td>
+                      <td>
+                            <a href="#">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                            </a>
+                      </td>
+                  </tr>
+              </tbody>
+             
+
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+
+      </div>
+
+
+  </div>
